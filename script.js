@@ -1,5 +1,5 @@
-const playerContainer = document.querySelector('#all-players-container');
-const newPlayerFormContainer = document.querySelector('#new-player-form');
+const playerContainer = document.getElementById("all-players-container");
+const newPlayerFormContainer = document.getElementById("new-player-form");
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = '2302-ACC-PT-WEB-PT-A';
@@ -17,8 +17,7 @@ const fetchAllPlayers = async () => {
         const response = await fetch(APIURL);
         const players = await response.json();
         console.log(players);
-        // return players;
-    } catch (error) {
+        } catch (error) {
         console.error("Uh oh, trouble fetching players!", (error));
     }
 };
