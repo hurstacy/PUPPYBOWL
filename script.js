@@ -16,7 +16,7 @@ const fetchAllPlayers = async () => {
     try {
         const response = await fetch(APIURL);
         const players = await response.json();
-        console.log(players);
+        return players;
         } catch (error) {
         console.error("Uh oh, trouble fetching players!", (error));
     }
