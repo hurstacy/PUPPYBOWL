@@ -5,36 +5,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  
   <title>PuppyBowl</title>
 </head>
 <body>
-  <div id="Puppy Bowl">
+  <div id="Puppy-Bowl">
   <h1 id="mainTitle">The Puppy Bowl</h1>
 
   <!-- form to add new players -->
-  <div class="container">
+  <div class="form" id="new-player-form">
     <form action="https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-PT-WEB-PT-A/players/" method="POST">
-    <div id="formfield">
-      <input type="text" name="text" class="text" size="50" placeholder="Name" required>
-      <input type="text" name="text" class="text" size="50" placeholder="Breed" required>
-      <input type="text" name="text" class="text" size="50" placeholder="Status" required>
+      <h2></h2>
+      <input type="text" name="puppy-name" class="puppy-name" size="50" placeholder="Name" required>
+      <input type="text" name="puppy-breed" class="puppy-breed" size="50" placeholder="Breed" required>
+      <input type="text" name="puppy-status" class="puppy-status" size="50" placeholder="Status" required>
+      <input type='file' name="puppy-img" accept="image/*" class="puppy-img" placeholder=""></input> 
+          <img src=""></img> 
+          <button class="submit-button" type="submit">Submit</button>
+        </form>
     </div>
-    <input name="submit" type="Submit" value="Submit">
-  </form>
-    <div class="controls">
-      <button class="add" onclick="add()"><i class="fa fa-plus"></i>Add</button>
-      <button class="remove" onclick="remove()"><i class="fa fa-minus"></i>Remove</button>
-    </div>
-  </div>
-  
 
   <!-- container for all players -->
   <div id="all-players-container"></div>
 
   <div id="player-conatiner"></div>
-
+</div>
   <!-- import JavaScript -->
-  <script src="/PUPPYBOWL-cat/script.js"></script>
+  <script src="/PUPPYBOWL/script.js"></script>
 </body>
 </div>
 </html>
