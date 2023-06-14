@@ -39,13 +39,14 @@ const fetchSinglePlayerById = async (playerId) => {
   }
 };
 
-// const addNewPlayer = async (playerObj) => {
-//   try {
 
-//   } catch (err) {
-//       console.error('Oops, something went wrong with adding that player!', err);
-//   }
-// };
+const addNewPlayer = async (formfield) => {
+  try {
+
+  } catch (err) {
+      console.error('Oops, something went wrong with adding that player!', err);
+  }
+};
 
 
 /**
@@ -82,6 +83,7 @@ const renderSinglePlayerById = async (playerId) => {
       <p>${player.breed}</p>
       <p>${player.status}</p>
       <p>${player.teamId}</p>
+      <img src="${player.imageUrl}" alt="Player Image">
       <button class="close-button">Close</button>
     `;
 
@@ -96,6 +98,8 @@ const renderSinglePlayerById = async (playerId) => {
     closeButton.addEventListener('click', () => {
       playerDetailsElement.remove();
       playerListContainer.style.display = 'block'; // show the player list container again
+      //return to main page after hitting close button
+      window.location.href = 'index.html';
     });
   } catch (error) {
     console.error(error);
@@ -114,10 +118,15 @@ const renderAllPlayers = async (players) => {
                 <p>${player.breed}</p>
                 <p>${player.status}</p>
                 <p>${player.teamId}</p>
+                <img src="${player.imageUrl}" alt="Player Image">
                 <button class="details-button" data-id="${player.id}">See Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>
             `;
+
+
       playerContainer.appendChild(playerElement);
+    
+
 
       // see details
       const detailsButton = playerElement.querySelector('.details-button');
@@ -132,49 +141,50 @@ const renderAllPlayers = async (players) => {
       const deleteButton = playerElement.querySelector('.delete-button');
       deleteButton.addEventListener('click', async (event) => {
         // get the id
-        const playerId = event.target.dataset.player.id
+        const playerId = event.target.dataset.id
         // pass the id to deleteParty function
         deletePlayer(playerId)
         // get it off the page
         event.target.closest('div.player').remove()
       });
     });
-  } catch (error) {
+    } catch (error) {
     console.error(error);
   }
 };
 
-const newPlayer = async (formfield) => {
-  try {
-      const response = await POST(`${APIURL}`);
-      formfield.innerHTML = '';
-      formfield.add((formfield) => {
-          const formfield1 = document.getElementById('formfield');  
+
+// comment out code until new player form is working so website loads
 
 
+// const newPlayer = async (formfield) => {
+//   try {
+//       const response = await POST(`${APIURL}`);
+//       formfield.innerHTML = '';
+//       formfield.add((formfield) => {
+//           const formfield = document.getElementById('formfield');  
+
   
-  function add(){
-    const newField = document.createElement('input');
-    newField.setAttribute('Name','text');
-    newField.setAttribute('Breed','text');
-    newField.setAttribute('class','text');
-    newField.setAttribute('siz',50);
-    newField.setAttribute('Status','text');
-    formfield.appendChild(newField);
-      }});
-  
-  function remove(){
-    const input_tags = formfield.getElementsByTagName('input');
-    if(input_tags.length > 2) {
-      formfield.removeChild(input_tags[(input_tags.length) - 1]);
-    }};
-  } catch (err) {
-      console.error("Uh oh, trouble rendering the new player form!", err);
-    }
-  
-  };
-// const result = await response.json();
-// console.log(result);
+//           function add(){
+//             const newField = document.createElement('input');
+//             newField.setAttribute('Name','text');
+//             newField.setAttribute('Breed','text');
+//             newField.setAttribute('class','text');
+//             newField.setAttribute('siz',50);
+//             newField.setAttribute('Status','text');
+//             formfield.appendChild(newField);
+//               }});
+          
+//           function remove(){
+//             const input_tags = formfield.getElementsByTagName('input');
+//             if(input_tags.length > 2) {
+//               formfield.removeChild(input_tags[(input_tags.length) - 1]);
+//             }};
+//           } catch (err) {
+//               console.error("Uh oh, trouble rendering the new player form!", err);
+//             }
+          
+//           };
 
 
 
