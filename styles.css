@@ -59,7 +59,7 @@ div{
   display: flex;
 }
 h2 {
-  margin: auto;
+  margin: 20px;
     font-size: 2.5rem;
     font-weight: 300;
     animation: lights 5s 750ms linear infinite;
