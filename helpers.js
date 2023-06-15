@@ -25,4 +25,4 @@ class doggoDetails extends playerCard {
          clickDetails(){
               return `Meet player ${this.id}, ${this.name} is a ${this.breed}. From ${this.cohortId}! This player joined ${this.createdAt} and is updated to the roster as of ${this.updatedAt}. ${this.name} will be joining ${this.teamId} for the competeion!`
            }
-}
+};
