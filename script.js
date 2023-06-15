@@ -2,7 +2,8 @@ const form = document.getElementById('formfield');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 const playerListContainer = document.getElementById('all-players-container');
 const playerContainer = document.getElementById('player-container');
-// const playerListContainer = document.getElementById('player-list-container');
+const playerRosterContainer = document.getElementById('roster-container');
+
 
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
@@ -48,24 +49,13 @@ const addNewPlayer = async (formfield) => {
   }
 };
 
-//ROSTER
-const roster = async (playerName) => {
-  try {
-    const response = await fetch(`${APIURL}/${playerName}`);
-    const responseJson = await response.json();
-    // console.log(responseJson);
-    const justName = responseJson.data.player.name;
-    return justName;
-  } catch (err) {
-    console.error(`oh no, trouble fetching names`, err);
-  }
-  };
 
 
 
 
 
-const playerName = event.target.dataset.name;
+
+
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
  * player, then adds that string to a larger string of HTML that represents all the players.
@@ -134,10 +124,7 @@ const renderAllPlayers = async (players) => {
       playerElement.classList.add('player');
       playerElement.innerHTML = `
                 <h2>${player.name}</h2>
-                <p>${player.id}</p>
-                <p>${player.breed}</p>
-                <p>${player.status}</p>
-                <p>${player.teamId}</p>
+                
                 <img src="${player.imageUrl}" alt="Player Image">
                 <button class="details-button" data-id="${player.id}">See Details</button>
                 <button class="delete-button" data-id="${player.id}">Delete</button>

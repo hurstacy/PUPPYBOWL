@@ -130,3 +130,7 @@ button.close-button {
   font-weight: bold;
   margin: 6px;
 }
+
+div#roster-container {
+  border: 4px solid rgb(253, 240, 213);
+}
