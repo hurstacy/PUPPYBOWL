@@ -93,6 +93,9 @@ const renderSinglePlayerById = async (playerId) => {
     // put the player details on the page (in the container)
     playerListContainer.appendChild(playerDetailsElement);
 
+
+
+    
     // add event listener to close button
     const closeButton = playerDetailsElement.querySelector('.close-button');
     closeButton.addEventListener('click', () => {
