@@ -48,7 +48,24 @@ const addNewPlayer = async (formfield) => {
   }
 };
 
+//ROSTER
+const roster = async (playerName) => {
+  try {
+    const response = await fetch(`${APIURL}/${playerName}`);
+    const responseJson = await response.json();
+    // console.log(responseJson);
+    const justName = responseJson.data.player.name;
+    return justName;
+  } catch (err) {
+    console.error(`oh no, trouble fetching names`, err);
+  }
+  };
 
+
+
+
+
+const playerName = event.target.dataset.name;
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
  * player, then adds that string to a larger string of HTML that represents all the players.
