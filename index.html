@@ -1,42 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
   <title>PuppyBowl</title>
 </head>
+
 <body>
   <h1 id="mainTitle">The Puppy Bowl</h1>
-
-    form to add new players 
-    <div class="container">
-      <form action="https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-PT-WEB-PT-A/players/" method="POST">
-      <div id="formfield">
-        <input type="text" name="text" class="text" size="50" placeholder="Name" required>
-        <input type="text" name="text" class="text" size="50" placeholder="Breed" required>
-        <input type="text" name="text" class="text" size="50" placeholder="Status" required>
-      </div>
-      <input name="submit" type="Submit" value="Submit">
-    </form>
-      <div class="controls">
+  <div class="container">
+  <form action="https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-PT-WEB-PT-A/players" method="post" id="new-player-form">
+    <h3>New Player</h3>
+    <div class ="field">
+    <input type="text" id="name" name="name" placeholder="Name"  required />
+    <small></small>
+    </div>
+    <div class="field">
+    <input type="text" id="breed" name="breed" placeholder="Breed" required />
+    <small></small>
+    </div>
+    <div class="field">
+    <input type="text" id="status" name="status" placeholder="Status" required />
+    <small></small>
+    </div>
+    <div class="field">
+    <input type="file" name= "fileElem" id="fileElem" multiple accept="image/*" style="display: none" />
+    <a href="#" id="fileSelect">Select some files</a>
+    </div>
+    <div id="fileList">
+      <p>No files selected!</p>
+    </div>
+    <div class="field">
+    <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+  <!-- <div class="controls">
         <button class="add" onclick="add()"><i class="fa fa-plus"></i>Add</button>
         <button class="remove" onclick="remove()"><i class="fa fa-minus"></i>Remove</button>
-      </div>
+      </div> -->
+  <!-- </form>
     </div> 
+    </div> -->
 
   <!-- container for all players -->
   <div id="all-players-container"></div>
 
   <div id="player-container"></div>
 
-  <div id="new-player-form"></div>
+  <!-- <div id="new-player-form"></div> -->
 
-  <div id="roster-container"></div>
+  <!-- <div id="roster-container"></div> -->
 
   <!-- import JavaScript -->
-  <script src="/script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

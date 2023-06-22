@@ -1,4 +1,4 @@
-class playerCard {
+class PlayerCard {
     constructor(name, image){
         this.name = name;
         this.image = image;
@@ -10,7 +10,7 @@ class playerCard {
     }
 }
 
-class doggoDetails extends playerCard {
+class DoggoDetails extends playerCard {
     constructor(name, image, breed, status, id, cohortId, updatedAt, createdAt, teamId){
            super(name, image);
            this.breed = breed;
@@ -30,6 +30,7 @@ class doggoDetails extends playerCard {
 
 
 //ROSTER
+
 const roster = async (playerName) => {
     try {
       const response = await fetch(`${APIURL}/${playerName}`);
@@ -41,11 +42,6 @@ const roster = async (playerName) => {
       console.error(`oh no, trouble fetching names`, err);
     }
     };
-
-    
-
-
-
 
 //roster
 const renderRoster = async (playerName) => {
