@@ -42,13 +42,13 @@ const form = document.getElementById("new-player-form");
   const playerName = form.elements["name"];
   const playerBreed = form.elements["breed"];
   const playerStatus = form.elements["status"];
-  const playerImageUrl = form.elements["imageUrl"];
+  // const playerImageUrl = form.elements["imageUrl"];
 
   //get the element's value:
   let name = playerName.value;
   let breed = playerBreed.value;
   let status = playerStatus.value;
-  let imageUrl = playerImageUrl.value;
+  // let imageUrl = playerImageUrl.value;
   
 
 
@@ -85,6 +85,7 @@ const STATUS_REQUIRED = "Is the player on bench or field";
 form.addEventListener("submit", function (event) {
   //stop form submission
   event.preventDefault();
+  
 
   //validate the form
   let nameValid = hasValue(form.elements["name"], NAME_REQUIRED);
@@ -96,25 +97,25 @@ form.addEventListener("submit", function (event) {
   if (nameValid && breedValid && statusValid) {
     alert("Player submitted");
     form.submit();
-  //   form.submit.addEventListener('load', function() {
-  //     document.querySelector('input[type="file"]').addEventListener('change', function() {
-  //         if (this.files && this.files[0]) {
-  //             let img = document.getElementById('imageUrl');  // $('img')[0]
-  //             img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-  //             img.onload = imageIsLoaded;
-  //         }
-  //     });
-  //   });
+    form.submit.addEventListener('load', function() {
+      document.querySelector('input[type="file"]').addEventListener('change', function() {
+          if (this.files && this.files[0]) {
+              let img = document.getElementById('imageUrl');  // $('img')[0]
+              img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+              img.onload = imageIsLoaded;
+  img.src=img.src.replace("https://learndotresources.s3.amazonaws.com/worksho…0ad725bbe74cd0004a6cba0/puppybowl-default-dog.png", "#");
+          }
+      });
+    });
     
-  //   function imageIsLoaded() { 
-  //     alert(this.src);  // blob url
-  //     // update width and height ...
-  //   }
+    function imageIsLoaded() { 
+      alert(this.src);  // blob url
+      // update width and height ...
+    }
     
   }});
 
-
-
+ 
 
 
 
@@ -145,7 +146,7 @@ async function postData() {
   }
   );
 }
-
+// 
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
  * player, then adds that string to a larger string of HTML that represents all the players.
