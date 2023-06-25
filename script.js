@@ -42,13 +42,13 @@ const form = document.getElementById("new-player-form");
   const playerName = form.elements["name"];
   const playerBreed = form.elements["breed"];
   const playerStatus = form.elements["status"];
-  const playerImageUrl = form.elements["fileElem"];
+  const playerImageUrl = form.elements["imageUrl"];
 
   //get the element's value:
   let name = playerName.value;
   let breed = playerBreed.value;
   let status = playerStatus.value;
-  let imageUrl = playerImageUrl;
+  let imageUrl = playerImageUrl.value;
   
 
 
@@ -74,9 +74,13 @@ function hasValue(input, message) {
   return showSuccess(input);
 }
 
+
+
+
 const NAME_REQUIRED = "Enter player's name";
 const BREED_REQUIRED = "Enter puppy's breed";
 const STATUS_REQUIRED = "Is the player on bench or field";
+// const IMAGE_REQUIRED ="Uploaded image";
 
 form.addEventListener("submit", function (event) {
   //stop form submission
@@ -86,25 +90,34 @@ form.addEventListener("submit", function (event) {
   let nameValid = hasValue(form.elements["name"], NAME_REQUIRED);
   let breedValid = hasValue(form.elements["breed"], BREED_REQUIRED);
   let statusValid = hasValue(form.elements["status"], STATUS_REQUIRED);
+  // let imageValid = hasValue(form.elements["imageUrl"], IMAGE_REQUIRED);
 
   //if valid submit the form
   if (nameValid && breedValid && statusValid) {
     alert("Player submitted");
     form.submit();
-  }
-});
+  //   form.submit.addEventListener('load', function() {
+  //     document.querySelector('input[type="file"]').addEventListener('change', function() {
+  //         if (this.files && this.files[0]) {
+  //             let img = document.getElementById('imageUrl');  // $('img')[0]
+  //             img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+  //             img.onload = imageIsLoaded;
+  //         }
+  //     });
+  //   });
+    
+  //   function imageIsLoaded() { 
+  //     alert(this.src);  // blob url
+  //     // update width and height ...
+  //   }
+    
+  }});
 
 
 
-// formObj = {};
-// for (let pair of formData.entries()) {
-//   formObj[pair[0]] = pair[1];
-// }
-// console.log(formObj);
-/**Add an onclick-listener to the whole form, the callback-function
- will always know what you have clicked and supply your function with
- an event-object as first parameter, `addEventListener` creates this
-*/
+
+
+
 
 async function postData() {
   const response = await fetch(
@@ -129,25 +142,9 @@ async function postData() {
     console.log(data);
     const formattedFormData = new FormData(formData);
     postData(formattedFormData);
-  });
+  }
+  );
 }
-
-// const addNewPlayer = async () => {
-//   try {
-//     const response = await fetch(
-//       'https://fsa-puppy-bowl.herokuapp.com/POST/api/2302-ACC-PT-WEB-PT-A/players',
-//        {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body:JSON.stringify({
-
-//                 })
-//       }
-//     )
-//   }
-// }
 
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
@@ -188,7 +185,7 @@ const renderSinglePlayerById = async (playerId) => {
     `;
 
     // hide the player list container
-    playerContainer.style.display = "none";
+    playerListContainer.style.display = "none";
 
     // put the player details on the page (in the container)
     playerContainer.appendChild(playerDetailsElement);
@@ -207,8 +204,9 @@ const renderSinglePlayerById = async (playerId) => {
 };
 
 const renderAllPlayers = async (players) => {
+  
   try {
-    playerListContainer.innerHTML = "";
+    
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
@@ -229,22 +227,24 @@ const renderAllPlayers = async (players) => {
         const playerId = event.target.dataset.id;
         renderSinglePlayerById(playerId);
       });
+       // delete player
+       const deleteButton = playerElement.querySelector(".delete-button");
+       deleteButton.addEventListener("click", async (event) => {
+         // get the id
+         const playerId = event.target.dataset.id;
+         // pass the id to delete function
+         deletePlayer(playerId);
+         // get it off the page
+         event.target.closest("div.player").remove();
+       });
+     });
+   } catch (error) {
+     console.error(error);
+   }
+ };
 
-      // delete player
-      const deleteButton = playerElement.querySelector(".delete-button");
-      deleteButton.addEventListener("click", async (event) => {
-        // get the id
-        const playerId = event.target.dataset.id;
-        // pass the id to deleteParty function
-        deletePlayer(playerId);
-        // get it off the page
-        event.target.closest("div.player").remove();
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+      
+           
 
 // Render the form for adding a new player
 
