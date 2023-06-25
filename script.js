@@ -75,7 +75,7 @@ function hasValue(input, message) {
 const NAME_REQUIRED = "Enter player's name";
 const BREED_REQUIRED = "Enter puppy's breed";
 const STATUS_REQUIRED = "Is the player on bench or field";
-const IMAGE_REQUIRED = "Uploaded image";
+
 
 form.addEventListener("submit", function (event) {
   //stop form submission
@@ -85,7 +85,7 @@ form.addEventListener("submit", function (event) {
   let nameValid = hasValue(form.elements["name"], NAME_REQUIRED);
   let breedValid = hasValue(form.elements["breed"], BREED_REQUIRED);
   let statusValid = hasValue(form.elements["status"], STATUS_REQUIRED);
-  let imageValid = hasValue(form.elements["imageUrl"], IMAGE_REQUIRED);
+  
 
   //if valid submit the form
   if (nameValid && breedValid && statusValid) {
