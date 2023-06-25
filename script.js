@@ -39,18 +39,16 @@ const fetchSinglePlayerById = async (playerId) => {
 //form
 const form = document.getElementById("new-player-form");
 
-  const playerName = form.elements["name"];
-  const playerBreed = form.elements["breed"];
-  const playerStatus = form.elements["status"];
-  // const playerImageUrl = form.elements["imageUrl"];
+const playerName = form.elements["name"];
+const playerBreed = form.elements["breed"];
+const playerStatus = form.elements["status"];
+const playerImageUrl = form.elements["imageUrl"];
 
-  //get the element's value:
-  let name = playerName.value;
-  let breed = playerBreed.value;
-  let status = playerStatus.value;
-  // let imageUrl = playerImageUrl.value;
-  
-
+//get the element's value:
+let name = playerName.value;
+let breed = playerBreed.value;
+let status = playerStatus.value;
+let imageUrl = playerImageUrl.value;
 
 //show a message with a type of the input
 function showMessage(input, message, type) {
@@ -74,51 +72,47 @@ function hasValue(input, message) {
   return showSuccess(input);
 }
 
-
-
-
 const NAME_REQUIRED = "Enter player's name";
 const BREED_REQUIRED = "Enter puppy's breed";
 const STATUS_REQUIRED = "Is the player on bench or field";
-// const IMAGE_REQUIRED ="Uploaded image";
+const IMAGE_REQUIRED = "Uploaded image";
 
 form.addEventListener("submit", function (event) {
   //stop form submission
   event.preventDefault();
-  
 
   //validate the form
   let nameValid = hasValue(form.elements["name"], NAME_REQUIRED);
   let breedValid = hasValue(form.elements["breed"], BREED_REQUIRED);
   let statusValid = hasValue(form.elements["status"], STATUS_REQUIRED);
-  // let imageValid = hasValue(form.elements["imageUrl"], IMAGE_REQUIRED);
+  let imageValid = hasValue(form.elements["imageUrl"], IMAGE_REQUIRED);
 
   //if valid submit the form
   if (nameValid && breedValid && statusValid) {
     alert("Player submitted");
     form.submit();
-    form.submit.addEventListener('load', function() {
-      document.querySelector('input[type="file"]').addEventListener('change', function() {
+    form.submit.addEventListener("load", function () {
+      document
+        .querySelector('input[type="file"]')
+        .addEventListener("change", function () {
           if (this.files && this.files[0]) {
-              let img = document.getElementById('imageUrl');  // $('img')[0]
-              img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-              img.onload = imageIsLoaded;
-  img.src=img.src.replace("https://learndotresources.s3.amazonaws.com/worksho…0ad725bbe74cd0004a6cba0/puppybowl-default-dog.png", "#");
+            let img = document.getElementById("imageUrl"); // $('img')[0]
+            img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+            img.onload = imageIsLoaded;
+            img.src = img.src.replace(
+              "https://learndotresources.s3.amazonaws.com/worksho…0ad725bbe74cd0004a6cba0/puppybowl-default-dog.png",
+              "#"
+            );
           }
-      });
+        });
     });
-    
-    function imageIsLoaded() { 
-      alert(this.src);  // blob url
+
+    function imageIsLoaded() {
+      alert(this.src); // blob url
       // update width and height ...
     }
-    
-  }});
-
- 
-
-
-
+  }
+});
 
 async function postData() {
   const response = await fetch(
@@ -143,10 +137,9 @@ async function postData() {
     console.log(data);
     const formattedFormData = new FormData(formData);
     postData(formattedFormData);
-  }
-  );
+  });
 }
-// 
+//
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
  * player, then adds that string to a larger string of HTML that represents all the players.
@@ -205,9 +198,7 @@ const renderSinglePlayerById = async (playerId) => {
 };
 
 const renderAllPlayers = async (players) => {
-  
   try {
-    
     players.forEach((player) => {
       const playerElement = document.createElement("div");
       playerElement.classList.add("player");
@@ -228,26 +219,21 @@ const renderAllPlayers = async (players) => {
         const playerId = event.target.dataset.id;
         renderSinglePlayerById(playerId);
       });
-       // delete player
-       const deleteButton = playerElement.querySelector(".delete-button");
-       deleteButton.addEventListener("click", async (event) => {
-         // get the id
-         const playerId = event.target.dataset.id;
-         // pass the id to delete function
-         deletePlayer(playerId);
-         // get it off the page
-         event.target.closest("div.player").remove();
-       });
-     });
-   } catch (error) {
-     console.error(error);
-   }
- };
-
-      
-           
-
-// Render the form for adding a new player
+      // delete player
+      const deleteButton = playerElement.querySelector(".delete-button");
+      deleteButton.addEventListener("click", async (event) => {
+        // get the id
+        const playerId = event.target.dataset.id;
+        // pass the id to delete function
+        deletePlayer(playerId);
+        // get it off the page
+        event.target.closest("div.player").remove();
+      });
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 /**
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
@@ -257,8 +243,6 @@ const renderAllPlayers = async (players) => {
 const init = async () => {
   const players = await fetchAllPlayers();
   renderAllPlayers(players);
-  // submit()
-  // renderFormElem()
   console.log(players);
 };
 
