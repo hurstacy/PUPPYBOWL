@@ -36,6 +36,21 @@ const fetchSinglePlayerById = async (playerId) => {
   }
 };
 
+
+
+const deleteSinglePlayerById = async (playerId) => {
+  try {
+    const response = await fetch(`${APIURL}/${playerId}`, {
+      method: "DELETE"
+    });
+    const responseJson = await response.json();
+    const player = responseJson.data.player;
+    return player;
+  } catch (error) {
+    console.log('Error');
+  }
+};
+
 //form
 const form = document.getElementById("new-player-form");
 
@@ -72,6 +87,7 @@ function hasValue(input, message) {
   return showSuccess(input);
 }
 
+
 const NAME_REQUIRED = "Enter player's name";
 const BREED_REQUIRED = "Enter puppy's breed";
 const STATUS_REQUIRED = "Is the player on bench or field";
@@ -93,19 +109,16 @@ form.addEventListener("submit", function (event) {
     form.submit();
     form.submit.addEventListener("load", function () {
       document
-        .querySelector('input[type="file"]')
+        .querySelector(id="imageUrl")
         .addEventListener("change", function () {
           if (this.files && this.files[0]) {
             let img = document.getElementById("imageUrl"); // $('img')[0]
             img.src = URL.createObjectURL(this.files[0]); // set src to blob url
             img.onload = imageIsLoaded;
-            img.src = img.src.replace(
-              "https://learndotresources.s3.amazonaws.com/worksho…0ad725bbe74cd0004a6cba0/puppybowl-default-dog.png",
-              "#"
-            );
           }
         });
     });
+
 
     function imageIsLoaded() {
       alert(this.src); // blob url
@@ -161,6 +174,8 @@ async function postData() {
  * @returns the playerContainerHTML variable.
  */
 
+
+//function of details button
 const renderSinglePlayerById = async (playerId) => {
   try {
     const player = await fetchSinglePlayerById(playerId);
@@ -174,9 +189,10 @@ const renderSinglePlayerById = async (playerId) => {
       <p>Breed: ${player.breed}</p>
       <p>Status: ${player.status}</p>
       <p>Team Id: ${player.teamId}</p>
-      <img src="${player.imageUrl}" alt="Player Image"> 
+      <img src=${player.imageUrl} alt="Player Image"> 
       <button class="close-button">Close</button>
     `;
+    
 
     // hide the player list container
     playerListContainer.style.display = "none";
@@ -187,15 +203,16 @@ const renderSinglePlayerById = async (playerId) => {
     // add event listener to close button
     const closeButton = playerDetailsElement.querySelector(".close-button");
     closeButton.addEventListener("click", () => {
-      playerDetailsElement.remove();
-      playerListContainer.style.display = "block"; // show the player list container again
-      //return to main page after hitting close button
+      playerContainer.appendChild(playerDetailsElement);
       window.location.href = "index.html";
+    
     });
   } catch (error) {
     console.error(error);
   }
 };
+
+
 
 const renderAllPlayers = async (players) => {
   try {
@@ -219,26 +236,30 @@ const renderAllPlayers = async (players) => {
         const playerId = event.target.dataset.id;
         renderSinglePlayerById(playerId);
       });
+
       // delete player
-      const deleteButton = playerElement.querySelector(".delete-button");
+      const deleteButton = playerElement.querySelector('.delete-button');
       deleteButton.addEventListener("click", async (event) => {
         // get the id
         const playerId = event.target.dataset.id;
-        // pass the id to delete function
-        deletePlayer(playerId);
-        // get it off the page
-        event.target.closest("div.player").remove();
+        await deleteSinglePlayerById(playerId);
+        console.log("deleted");
+        event.target.closest('div.player').remove();
       });
+
+
+      
     });
   } catch (error) {
     console.error(error);
   }
 };
 
-/**
- * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
- * fetches all players from the database, and renders them to the DOM.
- */
+
+
+
+
+
 
 const init = async () => {
   const players = await fetchAllPlayers();
